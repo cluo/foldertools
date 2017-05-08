@@ -4,17 +4,11 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"os"
 	"os/exec"
 	"strings"
 
 	"github.com/fsnotify/fsnotify"
 )
-
-func walkFn(path string, info os.FileInfo, err error) error {
-	fmt.Printf("%s \n", path)
-	return nil
-}
 
 func main() {
 
@@ -33,7 +27,7 @@ func main() {
 		for {
 			select {
 			case event := <-watcher.Events:
-				//		log.Println("event:", event)
+				//log.Println("event:", event)
 				if event.Op&fsnotify.Write == fsnotify.Write {
 					//log.Println("modified file:", event.Name)
 					execCommand(event.Name, *execSh)
