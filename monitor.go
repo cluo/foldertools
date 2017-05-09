@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-
 	dir := flag.String("dir", "./", "目录地址")
 	execSh := flag.String("e", "du -h {file}", "执行的命令,{file}为改变的文件")
 	flag.Parse()
@@ -43,17 +42,15 @@ func main() {
 		log.Fatal(err)
 	}
 	<-done
-
 }
 
 func execCommand(path string, execSh string) error {
-
 	ext := path[len(path)-4:]
 
 	if ext != ".swp" {
 		execStr := strings.Replace(execSh, "{file}", path, -1)
-
 		execSp := strings.Split(execStr, " ")
+
 		cmd := exec.Command(execSp[0], execSp[1:]...)
 		out, err := cmd.Output()
 
